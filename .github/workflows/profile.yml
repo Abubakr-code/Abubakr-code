@@ -1,0 +1,41 @@
+# Rebuilds the live cards of the profile README every 6 hours: stats, languages and the contribution snake.
+# Everything is published to the `output` branch, which the README links to.
+name: profile
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  cards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stats and languages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/stats.py "${{ github.repository_owner }}" dist
+
+      - name: Contribution snake
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake-dark.svg?palette=github-dark&color_snake=#4a67ff&color_dots=#161b22,#1c2560,#2a3aa8,#4a67ff,#93a5ff
+            dist/snake-light.svg?color_snake=#2448ff&color_dots=#ebedf0,#c9d1ff,#93a5ff,#4a67ff,#2448ff
+
+      - name: Publish to the output branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+          commit_message: "cards: ${{ github.run_id }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
