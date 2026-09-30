@@ -12,50 +12,21 @@
 
 ## 👋 Men haqimda · Обо мне · About me
 
-<details open>
-<summary><b>🇺🇿 O'zbekcha</b></summary>
-<br>
+> 🇺🇿 Veb-ilovalarni quraman — va ularni xakerlardan oldin buzib ko'raman.<br>
+> 🇷🇺 Создаю веб-приложения — и ломаю их раньше хакеров.<br>
+> 🇬🇧 I build web apps — and break them before attackers do.
 
-Salom! Men **Abubakr** — O'zbekistondan **full-stack dasturchi** va **kiberxavfsizlik mutaxassisi**.
-Veb-ilovalarni boshidan oxirigacha quraman va ularni xakerdan oldin buzib ko'raman.
-
-- 🛡️ **[Armorix](https://github.com/Abubakr-code/armorix)** asoschisiman — kodni **internetsiz** tekshiradigan va lokal AI bilan tuzatadigan auditor
-- 🔍 Yo'nalishim: AppSec, statik kod tahlili (SAST), secure code review, DevSecOps
-- 🧠 Lokal LLM'lar: Ollama / llama.cpp bilan oflayn AI — kod kompyuterdan chiqmaydi
-- 🌐 3D veb: React, Three.js, GSAP — [saytimni ko'ring](https://abubakr-code.github.io)
-- 🚀 Hozir: Armorix'ni UzCombinator 2026 ga tayyorlayapman
-
-</details>
-
-<details>
-<summary><b>🇷🇺 Русский</b></summary>
-<br>
-
-Привет! Я **Абубакр** — **full-stack разработчик** и **специалист по кибербезопасности** из Узбекистана.
-Создаю веб-приложения от начала до конца и ломаю их раньше, чем это сделают хакеры.
-
-- 🛡️ Основатель **[Armorix](https://github.com/Abubakr-code/armorix)** — аудитор кода, который проверяет **без интернета** и исправляет уязвимости локальным ИИ
-- 🔍 Направления: AppSec, статический анализ (SAST), secure code review, DevSecOps
-- 🧠 Локальные LLM: офлайн-ИИ на Ollama / llama.cpp — код не покидает компьютер
-- 🌐 3D-веб: React, Three.js, GSAP — [мой сайт](https://abubakr-code.github.io)
-- 🚀 Сейчас: готовлю Armorix к UzCombinator 2026
-
-</details>
-
-<details>
-<summary><b>🇬🇧 English</b></summary>
-<br>
-
-Hi! I'm **Abubakr** — a **full-stack developer** and **cybersecurity specialist** from Uzbekistan.
-I build web apps end to end and break them before attackers do.
-
-- 🛡️ Founder of **[Armorix](https://github.com/Abubakr-code/armorix)** — an offline code auditor that finds vulnerabilities and fixes them with a local AI
-- 🔍 Focus: AppSec, static analysis (SAST), secure code review, DevSecOps
-- 🧠 Local LLMs: offline AI with Ollama / llama.cpp — code never leaves the machine
-- 🌐 3D web: React, Three.js, GSAP — [see my site](https://abubakr-code.github.io)
-- 🚀 Now: getting Armorix ready for UzCombinator 2026
-
-</details>
+```ts
+const abubakr = {
+  location:  "Uzbekistan 🇺🇿",
+  roles:     ["Full-Stack Developer", "Cybersecurity Specialist"],
+  building:  "Armorix — offline AI code auditor",
+  frontend:  ["React", "TypeScript", "Three.js", "Tailwind"],
+  backend:   ["Node.js", "Python", "Electron"],
+  security:  ["AppSec", "SAST", "Secure Code Review", "DevSecOps"],
+  speaks:    ["O'zbekcha", "Русский", "English"],
+};
+```
 
 ## 🛡️ Asosiy loyiha · Главный проект · Featured
 

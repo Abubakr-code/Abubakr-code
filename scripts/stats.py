@@ -44,6 +44,39 @@ def fetch(login: str, token: str) -> dict:
     return data["data"]["user"]
 
 
+def rest(url: str, token: str):
+    req = urllib.request.Request(url, headers={"Authorization": f"bearer {token}", "Accept": "application/vnd.github+json",
+                                               "User-Agent": "profile-stats"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return json.load(resp), resp.headers.get("Link", "")
+
+
+def commit_calendar(login: str, token: str) -> tuple[list[dict], int]:
+    """The Actions token cannot read contributionsCollection: count the owner's commits in their public repos instead."""
+    start = dt.date.today() - dt.timedelta(days=364)
+    repos, _ = rest(f"https://api.github.com/users/{login}/repos?per_page=100&type=owner", token)
+    per_day: dict[str, int] = {}
+    for repo in repos:
+        if repo["fork"]:
+            continue
+        url = f"https://api.github.com/repos/{login}/{repo['name']}/commits?author={login}&since={start.isoformat()}T00:00:00Z&per_page=100"
+        for _ in range(10):
+            try:
+                page, link = rest(url, token)
+            except OSError:
+                break
+            for c in page:
+                day = c["commit"]["author"]["date"][:10]
+                per_day[day] = per_day.get(day, 0) + 1
+            nxt = [p.split(";")[0].strip("<> ") for p in link.split(",") if 'rel="next"' in p]
+            if not nxt:
+                break
+            url = nxt[0]
+    days = [{"date": (start + dt.timedelta(days=i)).isoformat(), "contributionCount": per_day.get((start + dt.timedelta(days=i)).isoformat(), 0)}
+            for i in range(365)]
+    return days, sum(per_day.values())
+
+
 def streaks(days: list[dict]) -> tuple[int, int]:
     current = longest = run = 0
     today = dt.date.today().isoformat()
@@ -82,8 +115,13 @@ def stats_card(u: dict) -> str:
     stars = sum(r["stargazerCount"] for r in repos["nodes"])
     cal = u["contributionsCollection"]["contributionCalendar"]
     days = [d for w in cal["weeks"] for d in w["contributionDays"]]
+    total, commits = cal["totalContributions"], u["contributionsCollection"]["totalCommitContributions"]
+    if not total and u.get("_fallback"):
+        days, commits = u["_fallback"]
+        total = commits
+        cal = {"weeks": [{"contributionDays": days[i:i + 7]} for i in range(0, len(days), 7)]}
     current, longest = streaks(days)
-    tiles = [("CONTRIBUTIONS", cal["totalContributions"]), ("COMMITS", u["contributionsCollection"]["totalCommitContributions"]),
+    tiles = [("CONTRIBUTIONS", total), ("COMMITS", commits),
              ("REPOS", repos["totalCount"]), ("STARS", stars), ("STREAK", f"{current}d"), ("BEST STREAK", f"{longest}d")]
     w, h = 480, 250
     body = ['<text class="h" x="28" y="40">GITHUB · LAST 12 MONTHS</text>']
@@ -128,6 +166,8 @@ if __name__ == "__main__":
     login, out = sys.argv[1], Path(sys.argv[2])
     out.mkdir(parents=True, exist_ok=True)
     user = fetch(login, os.environ["GITHUB_TOKEN"])
+    if not user["contributionsCollection"]["contributionCalendar"]["totalContributions"]:
+        user["_fallback"] = commit_calendar(login, os.environ["GITHUB_TOKEN"])
     (out / "stats.svg").write_text(stats_card(user), encoding="utf-8")
     (out / "langs.svg").write_text(langs_card(user), encoding="utf-8")
     print("wrote", sorted(p.name for p in out.glob("*.svg")))
