@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="250" viewBox="0 0 480 250" role="img" aria-label="GitHub stats">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0d0f16"/><stop offset="1" stop-color="#131935"/></linearGradient></defs>
+<style>
+  .k { font: 600 12px 'JetBrains Mono', SFMono-Regular, Consolas, 'Liberation Mono', monospace; fill: #8b8d97; letter-spacing: 2px }
+  .v { font: 800 34px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #eeeee9; letter-spacing: -1px }
+  .h { font: 700 13px 'JetBrains Mono', SFMono-Regular, Consolas, 'Liberation Mono', monospace; fill: #93a5ff; letter-spacing: 3px }
+  .l { font: 500 14px 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; fill: #c9cad1 }
+  .grow { animation: grow 1.2s cubic-bezier(.2,.8,.2,1) both }
+  @keyframes grow { from { transform: scaleX(0) } }
+  .fade { animation: fade .8s ease both }
+  @keyframes fade { from { opacity: 0 } }
+</style>
+<rect x=".5" y=".5" width="479" height="249" rx="16" fill="url(#bg)" stroke="#2a2e3a"/>
+<text class="h" x="28" y="40">GITHUB · LAST 12 MONTHS</text><g class="fade" style="animation-delay:0.00s"><text class="v" x="28" y="88">9</text><text class="k" x="28" y="110">CONTRIBUTIONS</text></g><g class="fade" style="animation-delay:0.12s"><text class="v" x="176" y="88">9</text><text class="k" x="176" y="110">COMMITS</text></g><g class="fade" style="animation-delay:0.24s"><text class="v" x="324" y="88">12</text><text class="k" x="324" y="110">REPOS</text></g><g class="fade" style="animation-delay:0.36s"><text class="v" x="28" y="160">1</text><text class="k" x="28" y="182">STARS</text></g><g class="fade" style="animation-delay:0.48s"><text class="v" x="176" y="160">0d</text><text class="k" x="176" y="182">STREAK</text></g><g class="fade" style="animation-delay:0.60s"><text class="v" x="324" y="160">2d</text><text class="k" x="324" y="182">BEST STREAK</text></g><polyline points="176,228.0 201,228.0 226,228.0 251,228.0 276,228.0 301,228.0 326,228.0 351,228.0 376,228.0 401,228.0 426,228.0 451,228.0" fill="none" stroke="#4a67ff" stroke-width="2" stroke-linejoin="round"/><text class="k" x="28" y="229">12 WEEKS →</text>
+</svg>
